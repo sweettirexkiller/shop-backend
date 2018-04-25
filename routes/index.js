@@ -1,6 +1,10 @@
 var express = require('express');
 var router = express.Router();
 var Product = require('../models/product');
+var csurf = require('csurf');
+
+var csrfProtection = csurf();
+router.use(csrfProtection);
 
 /* GET Home Shop page. */
 router.get('/', function (req, res, next) {
@@ -12,6 +16,14 @@ router.get('/', function (req, res, next) {
         }
         res.render('shop/index', {products: productsChunk});
     });
+});
+
+router.get('/user/signup', (req,res,next)=> {
+    res.render('user/signup', {csrfToken: req.csrfToken()})
+});
+
+router.post('/user/signup', (req,res,next)=> {
+   res.redirect('/');
 });
 
 module.exports = router;

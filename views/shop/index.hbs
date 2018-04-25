@@ -1,42 +1,22 @@
-<div class="row">
-    <div class="col-sm-6 col-md-6">
-        <div class="card-deck">
-            <div class="card">
-                <img class="card-img-top" src="https://upload.wikimedia.org/wikipedia/en/5/5e/Gothiccover.png"
-                     alt="Card image cap">
-                <div class="card-body">
-                    <h5 class="card-title">Gothic</h5>
-                    <p class="card-text">Amazing game!</p>
-                    <p class="card-text">
-                        <small class="text-muted">3$</small>
-                    </p>
-                    <a href="#" class="btn btn-primary pull-right">Buy</a>
-                </div>
-            </div>
-            <div class="card">
-                <img class="card-img-top" src="https://upload.wikimedia.org/wikipedia/en/5/5e/Gothiccover.png"
-                     alt="Card image cap">
-                <div class="card-body">
-                    <h5 class="card-title">Gothic</h5>
-                    <p class="card-text">Amazing game!</p>
-                    <p class="card-text">
-                        <small class="text-muted">3$</small>
-                    </p>
-                    <a href="#" class="btn btn-primary pull-right">Buy</a>
-                </div>
-            </div>
-            <div class="card">
-                <img class="card-img-top" src="https://upload.wikimedia.org/wikipedia/en/5/5e/Gothiccover.png"
-                     alt="Card image cap">
-                <div class="card-body">
-                    <h5 class="card-title">Gothic</h5>
-                    <p class="card-text">Amazing game!</p>
-                    <p class="card-text">
-                        <small class="text-muted">3$</small>
-                    </p>
-                    <a href="#" class="btn btn-primary pull-right">Buy</a>
-                </div>
+{{# each products}}
+    <div class="row">
+        <div class="col-sm-6 col-md-6">
+            <div class="card-deck">
+                {{# each this}}
+                    <div class="card">
+                        <img class="card-img-top game-image" src="{{this.imagePath}}"
+                             alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="card-title">{{this.title}}</h5>
+                            <p class="card-text">{{this.description}}</p>
+                            <p class="card-text">
+                                <small class="text-muted">{{this.price}}$</small>
+                            </p>
+                            <a href="#" class="btn btn-primary pull-right">Buy</a>
+                        </div>
+                    </div>
+                {{/each}}
             </div>
         </div>
     </div>
-</div>
+{{/each}}

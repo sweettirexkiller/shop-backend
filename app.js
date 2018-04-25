@@ -10,7 +10,7 @@ var usersRouter = require('./routes/users');
 
 var app = express();
 
-mongoose.connect('localhost:27017/shoping');
+mongoose.connect('mongodb://localhost/shoping', {promiseLibrary: require('bluebird')});
 
 // view engine setup
 app.engine('.hbs', expressHbs({defaultLayout: 'layout', extname:'.hbs'}));

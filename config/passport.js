@@ -18,7 +18,7 @@ passport.use('local.signup', new LocalStrategy({
     passReqToCallback: true
 },(req,email,password,done)=>{
     req.checkBody('email', 'Invalid email').notEmpty().isEmail();
-    req.checkBody('password', 'Invalid passwword').notEmpty().isLength({min:4});
+    req.checkBody('password', 'Invalid password').notEmpty().isLength({min:4});
     var errors = req.validationErrors();
     if(errors){
         var messages=[];
@@ -52,4 +52,28 @@ passport.use('local.signin', new LocalStrategy({
     passwordField: 'password',
     passReqToCallback: true
 },(req,email,password,done)=>{
+    req.checkBody('email', 'Invalid email').notEmpty().isEmail();
+    req.checkBody('password', 'Invalid password').notEmpty();
+    const errors = req.validationErrors();
+    if(errors){
+        let messages=[];
+        errors.forEach((error)=>{
+            messages.push(error.msg);
+        });
+        return done(null,false, req.flash('error', messages))
+    }
+
+    User.findOne({'email':email}, (err, user)=>{
+        if(err){
+            return done(err);
+        }
+        if(!user){
+            return done(null,false,{message:"Authentication Failed"});
+        }
+        if(!user.validPassword(password)){
+            return done(null,false,{message:"Authentication Failed"});
+        }
+       return done(null, user);
+    });
+
 }));

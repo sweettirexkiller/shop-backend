@@ -21,7 +21,6 @@ router.get('/', function (req, res, next) {
 
 router.get('/user/signup', (req,res,next)=> {
     let messages = req.flash('error');
-    console.log(messages);
     res.render('user/signup', {csrfToken: req.csrfToken(), messages: messages, hasErrors: messages.length > 0})
 });
 
@@ -34,5 +33,17 @@ router.post('/user/signup', passport.authenticate('local.signup', {
 router.get('/user/profile', (req,res,next)=>{
     res.render('user/profile')
 });
+
+router.get('/user/signin', (req,res,next)=> {
+    let messages = req.flash('error');
+    res.render('user/signin', {csrfToken: req.csrfToken(), messages: messages, hasErrors: messages.length > 0})
+});
+
+router.post('/user/signin', passport.authenticate('local.signin', {
+    successRedirect: '/user/profile',
+    failureRedirect: '/user/signin',
+    failureFlash: true
+}));
+
 
 module.exports = router;

@@ -47,7 +47,7 @@ passport.use('local.signup', new LocalStrategy({
     });
 }));
 
-passport.use('local.signin', new LocalStrategy({
+passport.use('local.login', new LocalStrategy({
     usernameField: 'email',
     passwordField: 'password',
     passReqToCallback: true
@@ -62,9 +62,7 @@ passport.use('local.signin', new LocalStrategy({
         });
         return done(null, false, req.flash('error', messages))
     }
-
     User.findOne({'email': email})
-        .exec()
         .then(user => {
             if (!user) {
                 return done(null, false, {message: "Authentication Failed"});
